@@ -46,10 +46,7 @@ class WeatherController extends Controller
      */
     private function validateDateIsInRange(DateTimeInterface $date): bool
     {
-        $now = match (app()->environment()) {
-            'local', 'testing' => Carbon::create(2018, 1, 2)->endOfDay(),
-            default => Carbon::now()->endOfDay(),
-        };
+        $now = Carbon::now()->endOfDay();
 
         /**
          * Date is valid when it's the same as the current date.

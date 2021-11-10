@@ -21,7 +21,7 @@ class FetchWeatherInformationHandler implements PipelineStepInterface
         {
             if (in_array($process->city, call_user_func(array($fetcher, 'providesCities'))))
             {
-                if (empty($data = $this->fetch(app($fetcher), $process->city)))
+                if (empty($data = $this->fetch(app($fetcher), $process)))
                 {
                     continue;
                 }
@@ -37,13 +37,13 @@ class FetchWeatherInformationHandler implements PipelineStepInterface
      * Fetch the weather data for the given provider
      *
      * @param WeatherFetchProviderInterface $provider
-     * @param string $city
+     * @param WeatherProcess $process
      * @return string
      */
-    private function fetch(WeatherFetchProviderInterface $provider, string $city): string
+    private function fetch(WeatherFetchProviderInterface $provider, WeatherProcess $process): string
     {
         try {
-            return $provider->fetchWeatherData($city);
+            return $provider->fetchWeatherData($process->city, $process->date);
         } catch (\Throwable $e) {
             if (config('weather.dd_on_failure')) dd($e);
 

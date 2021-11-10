@@ -3,6 +3,7 @@
 namespace App\Services\Weather;
 
 use App\Services\Weather\Pipeline\WeatherProcess;
+use DateTimeInterface;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 
@@ -16,9 +17,9 @@ class WeatherService implements WeatherServiceInterface
     /**
      * {@inheritDoc}
      */
-    public function weatherByCity(string $city): Collection
+    public function weatherByCity(string $city, DateTimeInterface $date): Collection
     {
-        $process = new WeatherProcess($city);
+        $process = new WeatherProcess($city, null, $date);
 
         /** @var WeatherProcess $data */
         $data = app(Pipeline::class)
