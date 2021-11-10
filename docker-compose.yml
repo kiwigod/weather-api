@@ -1,0 +1,11 @@
+version: '3.0'
+
+services:
+  weather-api:
+    container_name: weather-api
+    build:
+      context: .
+    volumes:
+      - .:/var/www
+    ports:
+      - "8080:80"
