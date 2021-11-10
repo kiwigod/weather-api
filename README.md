@@ -15,6 +15,13 @@ php artisan migrate
 This might throw an exception, which can be resolved by creating an empty file dubbed `databse.sqlite` in the 
 database directory.
 
+Last but not least the `.env.example` file should be copied to `.env`. There are two variables left undefined `APP_KEY` 
+and `JWT_SIGNING_KEY`. Both are essential to be set before continuing. The app key should be a string of 32 characters, 
+jwt signing key can be generated using the following command:
+```shell
+openssl rand -base64 32
+```
+
 ## Start
 The application makes use of Authorization although not required. Sending a POST request with the following parameters 
 to `/users` will store the user data.
