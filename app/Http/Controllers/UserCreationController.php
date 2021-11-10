@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Responses\User\UserCreationResponseBuilder;
 use App\Http\Validators\UserCreationValidator;
 use App\Services\User\UserCreationService;
 
@@ -20,6 +21,6 @@ class UserCreationController extends Controller
      */
     public function create(UserCreationValidator $validator)
     {
-        return response(['id' => $this->userCreationService->saveUserFromValidator($validator)]);
+        return UserCreationResponseBuilder::build($this->userCreationService->saveUserFromValidator($validator));
     }
 }

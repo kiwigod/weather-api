@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Responses\User\UserAuthorizationResponseBuilder;
 use App\Http\Validators\UserAuthorizationValidator;
 use App\Services\User\UserAuthorizationService;
 
@@ -25,8 +26,6 @@ class UserAuthController extends Controller
             $this->userAuthorizationService->authenticateUser($validator->one('email'), $validator->one('password'))
         );
 
-        return response([
-            'token' => $token->toString(),
-        ]);
+        return UserAuthorizationResponseBuilder::build($token);
     }
 }
