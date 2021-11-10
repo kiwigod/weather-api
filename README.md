@@ -1,24 +1,38 @@
-# Lumen PHP Framework
+# Weather-api
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+## Installation
+The project is set up with docker therefore the following command will take care of most things:
+```shell
+docker-compose up -d
+```
+The necessary packages thereafter still need to be installed with composer.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+After all dependencies are installed you will need to run the migrations. This can be achieved with the following 
+command inside the docker container:
+```shell
+php artisan migrate
+```
+This might throw an exception, which can be resolved by creating an empty file dubbed `databse.sqlite` in the 
+database directory.
 
-## Official Documentation
+## Start
+The application makes use of Authorization although not required. Sending a POST request with the following parameters 
+to `/users` will store the user data.
+```
+'name' => string with minimum length of 2
+'email' => any valid email, the same email cannot be used twice
+'password' => the desired password, minimum length 6
+'password_confirmation' => the desired password again
+```
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+You can authenticate the user thereafter by making a POST request to `/users/auth` with the user's email and 
+password.
 
-## Contributing
-
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Weather
+The weather data can be retrieved by making a GET request to `/weather`. This endpoint requires the parameters listed 
+below
+```
+'city' => name of the city as defined in the CityEnum
+'unit' => temperature unit as defint in UnitEnum
+'date' => format d/m/Y
+```
