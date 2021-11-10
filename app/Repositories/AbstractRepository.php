@@ -23,12 +23,4 @@ abstract class AbstractRepository
 
         return $model->{$model->getKeyName()};
     }
-
-    public function firstOrFail(int $id): Model
-    {
-        // todo: create exception
-        throw_unless($result = $this->query()->find($id), '');
-
-        return $result;
-    }
 }
